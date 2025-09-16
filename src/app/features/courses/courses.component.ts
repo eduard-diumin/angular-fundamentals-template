@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 
 @Component({
-  selector: "app-course-card",
-  templateUrl: "./course-card.component.html",
-  styleUrls: ["./course-card.component.scss"],
+  selector: "app-courses",
+  templateUrl: "./courses.component.html",
+  styleUrls: ["./courses.component.css"],
 })
-export class CourseCardComponent {
+export class CoursesComponent {
   @Input() title!: string;
   @Input() description!: string;
   @Input() creationDate!: Date;

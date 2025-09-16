@@ -1,5 +1,8 @@
 <div class="app-info">
   <!-- Replace ::text:: with your code -->
-  <div class="app-info__header">::Title::</div>
-  <div class="app-info__title">::Text::</div>
+  <div class="app-info__header">{{ title }}</div>
+  <div class="app-info__text" *ngif="text">{{ text }}</div>
+  <ng-content>
+    <app-button [buttonText]="'Add new courses'"></app-button>
+  </ng-content>
 </div>
