@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 
 export interface Course {
+  id: string;
   title: string;
   description: string;
   creationDate: Date;
@@ -31,5 +32,9 @@ export class CoursesListComponent {
 
   onDeleteCourse(course: Course) {
     this.deleteCourse.emit(course);
+  }
+
+  trackByCourseId(index: number, course: Course) {
+    return course.id;
   }
 }
