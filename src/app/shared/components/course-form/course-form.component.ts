@@ -28,7 +28,7 @@ export class CourseFormComponent {
       description: ["", [Validators.required, Validators.minLength(2)]],
       duration: [0, [Validators.required, Validators.min(0)]],
       authors: this.fb.array([]),
-      newAuthor: [
+      author: [
         "",
         [
           Validators.required,
@@ -73,14 +73,16 @@ export class CourseFormComponent {
   }
 
   createAuthor() {
-    const name = this.courseForm.get("author")?.value;
-    if (this.courseForm.get("author")?.valid) {
+    const authorControl = this.courseForm.get("author");
+    const name = authorControl?.value;
+
+    if (authorControl?.valid) {
       const newAuthor: Author = {
         id: Math.random().toString(36).substring(2, 10),
         name,
       };
       this.allAuthors.push(newAuthor);
-      this.courseForm.get("author")?.reset();
+      authorControl.reset();
     }
   }
 
