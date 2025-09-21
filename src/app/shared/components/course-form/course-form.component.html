@@ -24,9 +24,9 @@
       <div class="separator"></div>
       <h3>Authors</h3>
       <div class="form__control">
-        <div class="course__flex" [formGroup]="newAuthorGroup">
+        <div class="course__flex">
           <!--Use the name `author` for the form control.-->
-          <input type="text" id="author" placeholder="Input Author Name" formControlName="name" />
+          <input type="text" id="author" placeholder="Input Author Name" formControlName="newAuthor" />
           <app-button id="createAuthor" (click)="createAuthor()">Create Author</app-button>
         </div>
         <span id="authorErrorMessage">New author should contain only latin letters and numbers.</span>

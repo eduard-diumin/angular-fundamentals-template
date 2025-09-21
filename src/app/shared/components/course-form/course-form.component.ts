@@ -28,16 +28,14 @@ export class CourseFormComponent {
       description: ["", [Validators.required, Validators.minLength(2)]],
       duration: [0, [Validators.required, Validators.min(0)]],
       authors: this.fb.array([]),
-      newAuthor: this.fb.group({
-        name: [
-          "",
-          [
-            Validators.required,
-            Validators.minLength(2),
-            Validators.pattern("^[a-zA-Z0-9]+$"),
-          ],
+      newAuthor: [
+        "",
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.pattern("^[a-zA-Z0-9]+$"),
         ],
-      }),
+      ],
     });
   }
   courseForm!: FormGroup;
@@ -75,14 +73,14 @@ export class CourseFormComponent {
   }
 
   createAuthor() {
-    const name = this.newAuthorGroup.get("name")?.value;
-    if (this.newAuthorGroup.valid) {
+    const name = this.courseForm.get("author")?.value;
+    if (this.courseForm.get("author")?.valid) {
       const newAuthor: Author = {
         id: Math.random().toString(36).substring(2, 10),
         name,
       };
       this.allAuthors.push(newAuthor);
-      this.newAuthorGroup.reset();
+      this.courseForm.get("author")?.reset();
     }
   }
 
