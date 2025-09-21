@@ -16,7 +16,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { DurationPipe } from "./pipes/duration.pipe";
 import { CustomDatePipe } from "./pipes/custom-date.pipe";
 import { EmailValidatorDirective } from "@shared/directives/email.directive";
-import { TogglePasswordDirective } from "./directives/password.directive";
+import { TogglePasswordDirective } from "@shared/directives/password.directive";
 
 const components = [
   HeaderComponent,

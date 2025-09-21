@@ -14,13 +14,9 @@
         <div class="form__control">
           <label for="password">Password</label>
           <!--Use the name `password` for the form control.-->
-          <input type="password" id="password" name="password" placeholder="Input text" togglePassword
-            #pwd="togglePassword" ngModel required />
-          <button type="button" (click)="pwd.toggle()">
-            {{ pwd.visible ? 'Hide' : 'Show' }}
-          </button>
+          <input type="password" id="password" name="password" placeholder="Input text" ngModel required />
           <span id="passwordErrorMessage" class="text-danger"
-            *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">Password
+            *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password']?.touched">Password
             is required.</span>
         </div>
       </div>

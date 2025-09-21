@@ -22,19 +22,12 @@ interface Author {
 export class CourseFormComponent {
   constructor(public fb: FormBuilder, public library: FaIconLibrary) {
     library.addIconPacks(fas);
-  }
-  courseForm!: FormGroup;
-  submitted = false;
 
-  allAuthors: Author[] = [];
-  courseAuthors: Author[] = [];
-  // Use the names `title`, `description`, `author`, 'authors' (for authors list), `duration` for the form controls.
-  ngOnInit(): void {
     this.courseForm = this.fb.group({
       title: ["", [Validators.required, Validators.minLength(2)]],
       description: ["", [Validators.required, Validators.minLength(2)]],
       duration: [0, [Validators.required, Validators.min(0)]],
-      authors: this.fb.array([]), // Для авторов курса
+      authors: this.fb.array([]),
       newAuthor: this.fb.group({
         name: [
           "",
@@ -46,7 +39,14 @@ export class CourseFormComponent {
         ],
       }),
     });
+  }
+  courseForm!: FormGroup;
+  submitted = false;
 
+  allAuthors: Author[] = [];
+  courseAuthors: Author[] = [];
+  // Use the names `title`, `description`, `author`, 'authors' (for authors list), `duration` for the form controls.
+  ngOnInit(): void {
     // Mock data for authors
     this.allAuthors = [
       { id: "1", name: "JohnDoe" },
