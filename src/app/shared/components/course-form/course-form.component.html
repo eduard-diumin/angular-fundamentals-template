@@ -56,7 +56,8 @@
           is required.</span>
       </div>
       <div class="form__action">
-        <app-button></app-button>
+        <app-button [buttonText]="isEditMode ? 'Update Course' : 'Create Course'" (click)="onSubmit()"></app-button>
+        <app-button [buttonText]="'Cancel'" (click)="onCancel()"></app-button>
       </div>
     </div>
   </div>
