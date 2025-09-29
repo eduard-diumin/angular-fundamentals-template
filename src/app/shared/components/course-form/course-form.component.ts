@@ -6,13 +6,16 @@ import {
   FormGroup,
   Validators,
 } from "@angular/forms";
-import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { ActivatedRoute, Router } from "@angular/router";
+import { Observable } from "rxjs";
 import { FaIconLibrary } from "@fortawesome/angular-fontawesome";
 import { fas } from "@fortawesome/free-solid-svg-icons";
-import { CoursesStoreService } from '@app/services/courses-store.service';
-import { Author, Course, CreateCourseRequest } from '@app/services/courses.service';
-}
+import { CoursesStoreService } from "@app/services/courses-store.service";
+import {
+  Author,
+  Course,
+  CreateCourseRequest,
+} from "@app/services/courses.service";
 
 @Component({
   selector: "app-course-form",
@@ -30,7 +33,7 @@ export class CourseFormComponent implements OnInit {
   isLoading$: Observable<boolean>;
 
   constructor(
-    public fb: FormBuilder, 
+    public fb: FormBuilder,
     public library: FaIconLibrary,
     private route: ActivatedRoute,
     private router: Router,
@@ -58,10 +61,10 @@ export class CourseFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.coursesStoreService.getAllAuthors();
-    this.courseId = this.route.snapshot.params['id'];
+    this.courseId = this.route.snapshot.params["id"];
     this.isEditMode = !!this.courseId;
 
-    this.authors$.subscribe(authors => {
+    this.authors$.subscribe((authors) => {
       this.allAuthors = authors;
     });
 
@@ -71,27 +74,32 @@ export class CourseFormComponent implements OnInit {
   }
 
   private loadCourse(id: string): void {
-    this.coursesStoreService.getCourse(id).subscribe(course => {
+    this.coursesStoreService.getCourse(id).subscribe((course) => {
       this.courseForm.patchValue({
         title: course.title,
         description: course.description,
-        duration: course.duration
+        duration: course.duration,
       });
-      
+
       // Set course authors
-      this.courseAuthors = course.authors.map(authorId => 
-        this.allAuthors.find(author => author.id === authorId)
-      ).filter(author => author !== undefined) as Author[];
-      
+      this.courseAuthors = course.authors
+        .map((authorId) =>
+          this.allAuthors.find((author) => author.id === authorId)
+        )
+        .filter((author) => author !== undefined) as Author[];
+
       // Update form array
       this.authors.clear();
-      this.courseAuthors.forEach(author => {
+      this.courseAuthors.forEach((author) => {
         this.authors.push(new FormControl(author));
       });
-      
+
       // Remove selected authors from available list
-      this.allAuthors = this.allAuthors.filter(author => 
-        !this.courseAuthors.some(courseAuthor => courseAuthor.id === author.id)
+      this.allAuthors = this.allAuthors.filter(
+        (author) =>
+          !this.courseAuthors.some(
+            (courseAuthor) => courseAuthor.id === author.id
+          )
       );
     });
   }
@@ -121,7 +129,7 @@ export class CourseFormComponent implements OnInit {
     const name = authorControl?.value;
 
     if (authorControl?.valid) {
-      this.coursesStoreService.createAuthor(name).subscribe(newAuthor => {
+      this.coursesStoreService.createAuthor(name).subscribe((newAuthor) => {
         this.allAuthors.push(newAuthor);
         authorControl.reset();
       });
@@ -135,22 +143,24 @@ export class CourseFormComponent implements OnInit {
         title: this.courseForm.value.title,
         description: this.courseForm.value.description,
         duration: this.courseForm.value.duration,
-        authors: this.courseAuthors.map(author => author.id)
+        authors: this.courseAuthors.map((author) => author.id),
       };
 
       if (this.isEditMode && this.courseId) {
-        this.coursesStoreService.editCourse(this.courseId, courseData).subscribe(() => {
-          this.router.navigate(['/courses']);
-        });
+        this.coursesStoreService
+          .editCourse(this.courseId, courseData)
+          .subscribe(() => {
+            this.router.navigate(["/courses"]);
+          });
       } else {
         this.coursesStoreService.createCourse(courseData).subscribe(() => {
-          this.router.navigate(['/courses']);
+          this.router.navigate(["/courses"]);
         });
       }
     }
   }
 
   onCancel(): void {
-    this.router.navigate(['/courses']);
+    this.router.navigate(["/courses"]);
   }
 }

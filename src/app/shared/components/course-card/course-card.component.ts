@@ -8,7 +8,7 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
 export class CourseCardComponent {
   @Input() title!: string;
   @Input() description!: string;
-  @Input() creationDate!: Date;
+  @Input() creationDate!: string;
   @Input() duration!: number;
   @Input() authors: string[] = [];
   @Input() editable = false;

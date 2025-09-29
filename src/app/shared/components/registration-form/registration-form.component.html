@@ -8,7 +8,7 @@
           <!--Use the name `name` for the form control.-->
           <input type="text" id="name" placeholder="Input text" formControlName="name" required />
           <span id="nameErrorMessage" class="text-danger"
-            *ngIf="registrationForm.controls['name'].invalid && registrationForm.controls['name'].touched">Name is
+            *ngIf="registrationForm.controls['name']?.invalid && registrationForm.controls['name']?.touched">Name is
             required.</span>
         </div>
         <div class="form__control">
@@ -16,7 +16,7 @@
           <label for="email">Email</label>
           <input type="text" id="email" placeholder="Input text" formControlName="email" emailValidator required />
           <span id="emailErrorMessage" class="text-danger"
-            *ngIf="registrationForm.controls['email'].invalid && registrationForm.controls['email'].touched">Email is
+            *ngIf="registrationForm.controls['email']?.invalid && registrationForm.controls['email']?.touched">Email is
             required.</span>
         </div>
         <div class="form__control">
@@ -24,7 +24,7 @@
           <label for="password">Password</label>
           <input type="password" id="password" placeholder="Input text" formControlName="password" required />
           <span id="passwordErrorMessage" class="text-danger"
-            *ngIf="registrationForm.controls['password'].invalid && registrationForm.controls['password'].touched">Password
+            *ngIf="registrationForm.controls['password']?.invalid && registrationForm.controls['password']?.touched">Password
             is required.</span>
         </div>
       </div>
