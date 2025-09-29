@@ -30,7 +30,7 @@ export interface AuthResponse {
   providedIn: "root",
 })
 export class AuthService {
-  private readonly apiUrl = "http://localhost:4000/api";
+  private readonly apiUrl = "http://localhost:4000";
   private isAuthorized$$ = new BehaviorSubject<boolean>(false);
   public isAuthorized$ = this.isAuthorized$$.asObservable();
 
