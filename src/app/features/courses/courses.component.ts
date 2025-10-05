@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs";
-import { CoursesStoreService } from "@app/services/courses-store.service";
+import { CoursesStateFacade } from "@app/store/courses/courses.facade";
 import { UserStoreService } from "@app/user/services/user-store.service";
 import { AuthService } from "@app/auth/services/auth.service";
 import { Course } from "@app/services/courses.service";
@@ -18,27 +18,27 @@ export class CoursesComponent implements OnInit {
   isAuthorized$: Observable<boolean>;
 
   constructor(
-    private coursesStoreService: CoursesStoreService,
+    private coursesStateFacade: CoursesStateFacade,
     private userStoreService: UserStoreService,
     private authService: AuthService,
     private router: Router
   ) {
-    this.courses$ = this.coursesStoreService.courses$;
-    this.isLoading$ = this.coursesStoreService.isLoading$;
+    this.courses$ = this.coursesStateFacade.courses$;
+    this.isLoading$ = this.coursesStateFacade.isAllCoursesLoading$;
     this.isAdmin$ = this.userStoreService.isAdmin$;
     this.isAuthorized$ = this.authService.isAuthorized$;
   }
 
   ngOnInit(): void {
-    this.coursesStoreService.getAll();
+    this.coursesStateFacade.getAllCourses();
     this.userStoreService.getUser();
   }
 
   onSearch(searchValue: string): void {
     if (searchValue.trim()) {
-      this.coursesStoreService.filterCourses(searchValue);
+      this.coursesStateFacade.getFilteredCourses(searchValue);
     } else {
-      this.coursesStoreService.getAll();
+      this.coursesStateFacade.getAllCourses();
     }
   }
 
@@ -56,9 +56,7 @@ export class CoursesComponent implements OnInit {
 
   onDeleteCourse(course: Course): void {
     if (confirm("Are you sure you want to delete this course?")) {
-      this.coursesStoreService.deleteCourse(course.id).subscribe(() => {
-        // Course deleted successfully
-      });
+      this.coursesStateFacade.deleteCourse(course.id);
     }
   }
 }
